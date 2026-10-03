@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@plugin "tailwind-scrollbar";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.markdown_spoiler {
+  background-color: #1e293b;
+  color: transparent !important;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  text-shadow: none !important;
+}
+
+.prose .markdown_spoiler {
+  border-radius: 0.25rem;
+  padding: 0 0.25rem;
+}
+
+.markdown_spoiler:hover:not(.revealed) {
+  background-color: #334155;
+}
+
+.markdown_spoiler * {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.markdown_spoiler.revealed {
+  color: inherit !important;
+  background-color: rgba(30, 41, 59, 0.4);
+  user-select: auto;
+}
+
+.markdown_spoiler.revealed * {
+  opacity: 1;
+}
