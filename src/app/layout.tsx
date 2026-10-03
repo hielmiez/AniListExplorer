@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Link from "next/link";
 import "./globals.css";
 import Providers from "@/components/Providers";
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="flex-1 flex flex-col">
             {children}
           </div>
+          <SpeedInsights />
         </Providers>
       </body>
     </html>
