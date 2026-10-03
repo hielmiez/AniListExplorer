@@ -58,6 +58,7 @@ describe('AnimeCard', () => {
       coverImage: { large: '/unknown.jpg' },
     };
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     render(<AnimeCard anime={minimalAnime as any} view="grid" />);
     expect(screen.getAllByText('Unknown').length).toBeGreaterThan(0);
   });

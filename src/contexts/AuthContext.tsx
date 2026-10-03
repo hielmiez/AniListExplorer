@@ -25,7 +25,16 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const accessToken = params.get('access_token');
+      if (accessToken) return accessToken;
+      return localStorage.getItem('anilist_token');
+    }
+    return null;
+  });
   const [user, setUser] = useState<User | null>(null);
 
   const logout = () => {
@@ -35,7 +44,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Check hash for access token after redirect
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
@@ -45,14 +53,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('anilist_token', accessToken);
         // Clear hash to hide token from URL
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setToken(accessToken);
-      } else {
-        const storedToken = localStorage.getItem('anilist_token');
-        if (storedToken) {
-          // eslint-disable-next-line react-hooks/set-state-in-effect
-          setToken(storedToken);
-        }
       }
     }
   }, []);
@@ -91,7 +91,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       })
       .catch(console.error);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const login = () => {
