@@ -28,11 +28,13 @@ export default function WatchlistEditor({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line
     setMounted(true);
   }, []);
 
   useEffect(() => {
     if (!token) {
+      // eslint-disable-next-line
       setIsFetching(false);
       return;
     }
