@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import Synopsis from '@/components/Synopsis';
 import BackButton from '@/components/BackButton';
+import WatchlistEditor from '@/components/WatchlistEditor';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const { id } = await params;
@@ -120,6 +121,14 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
                   <span className="text-[10px] text-slate-400 uppercase tracking-wider">Popularity</span>
                 </div>
               )}
+            </div>
+
+            {/* Watchlist Actions */}
+            <div className="w-full">
+              <WatchlistEditor 
+                mediaId={anime.id} 
+                maxEpisodes={anime.episodes} 
+              />
             </div>
 
             {/* Information Box */}

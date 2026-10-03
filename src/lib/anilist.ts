@@ -370,3 +370,31 @@ export const GET_USER_WATCHLIST_QUERY = `
     }
   }
 `;
+
+export const SAVE_MEDIA_LIST_ENTRY_MUTATION = `
+  mutation SaveMediaListEntry($mediaId: Int, $status: MediaListStatus, $scoreRaw: Int, $progress: Int) {
+    SaveMediaListEntry(mediaId: $mediaId, status: $status, scoreRaw: $scoreRaw, progress: $progress) {
+      id
+      status
+      score
+      progress
+      media {
+        id
+        title {
+          romaji
+        }
+      }
+    }
+  }
+`;
+
+export const GET_MEDIA_LIST_ENTRY_QUERY = `
+  query GetMediaListEntry($mediaId: Int!, $userId: Int!) {
+    MediaList(mediaId: $mediaId, userId: $userId) {
+      id
+      status
+      progress
+      score
+    }
+  }
+`;
