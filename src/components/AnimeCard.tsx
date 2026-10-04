@@ -29,6 +29,8 @@ interface AnimeCardProps {
     };
   };
   view?: 'grid' | 'list';
+  userProgress?: number;
+  userScore?: number;
 }
 
 function hexToRgba(hex: string | null, alpha: number) {
@@ -75,7 +77,7 @@ function formatTimeUntilAiring(seconds: number) {
   return `${minutes}m`;
 }
 
-export default function AnimeCard({ anime, view = 'grid' }: AnimeCardProps) {
+export default function AnimeCard({ anime, view = 'grid', userProgress, userScore }: AnimeCardProps) {
   const title = anime.title.english || anime.title.romaji || anime.title.native || 'Unknown Title';
   const mainStudio = anime.studios?.nodes?.[0]?.name || 'Unknown Studio';
   const rawColor = anime.coverImage.color;
@@ -170,6 +172,11 @@ export default function AnimeCard({ anime, view = 'grid' }: AnimeCardProps) {
             ★ {anime.averageScore}
           </div>
         )}
+        {userProgress !== undefined && (
+          <div className="absolute top-2 left-2 bg-blue-600/90 backdrop-blur-sm text-white font-bold px-2 py-1 rounded-md text-[10px] shadow-md z-10">
+            EP {userProgress}
+          </div>
+        )}
       </div>
       
       {/* Fixed height container for consistent alignment */}
@@ -198,6 +205,17 @@ export default function AnimeCard({ anime, view = 'grid' }: AnimeCardProps) {
             {anime.averageScore && <span className="text-green-400 font-bold">{anime.averageScore}%</span>}
           </div>
         </div>
+
+        {(userProgress !== undefined || userScore !== undefined) && (
+          <div className="flex justify-between items-center text-[10px] bg-slate-800/80 rounded px-2 py-1.5 mb-3 border border-slate-700 text-slate-200 shadow-inner">
+            {userProgress !== undefined && (
+              <span>EP: <span className="text-white font-bold">{userProgress}</span> {anime.episodes ? `/ ${anime.episodes}` : ''}</span>
+            )}
+            {userScore !== undefined && userScore > 0 && (
+              <span className="text-blue-400 font-bold ml-auto">★ {userScore}</span>
+            )}
+          </div>
+        )}
 
         {anime.nextAiringEpisode && (
           <div className="mb-3 text-[10px] font-semibold text-blue-400 bg-blue-900/20 px-2 py-1 rounded border border-blue-800/30 text-center uppercase tracking-wider">

@@ -205,18 +205,12 @@ export default function WatchlistPage() {
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {currentEntries.map((entry: any) => (
                         <div key={entry.id} className="relative group">
-                          <AnimeCard anime={entry.media} view="grid" />
-                          {/* Entry Metadata overlay */}
-                          <div className="absolute top-1 left-1 right-1 flex justify-between z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="bg-slate-900/95 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur-md border border-slate-700 shadow-lg">
-                              EP: {entry.progress} {entry.media.episodes ? `/ ${entry.media.episodes}` : ''}
-                            </div>
-                            {entry.score > 0 && (
-                              <div className="bg-blue-600/95 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur-md shadow-lg">
-                                ★ {entry.score}
-                              </div>
-                            )}
-                          </div>
+                          <AnimeCard 
+                            anime={entry.media} 
+                            view="grid" 
+                            userProgress={entry.progress} 
+                            userScore={entry.score} 
+                          />
                         </div>
                       ))}
                     </div>
