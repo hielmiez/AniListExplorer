@@ -360,6 +360,11 @@ export const GET_USER_WATCHLIST_QUERY = `
             averageScore
             season
             seasonYear
+            studios(isMain: true) {
+              nodes {
+                name
+              }
+            }
             nextAiringEpisode {
               episode
               timeUntilAiring
@@ -395,6 +400,71 @@ export const GET_MEDIA_LIST_ENTRY_QUERY = `
       status
       progress
       score
+    }
+  }
+`;
+
+export const GET_ANIME_CHARACTERS_QUERY = `
+  query GetAnimeCharacters($id: Int!, $page: Int = 1) {
+    Media(id: $id, type: ANIME) {
+      id
+      title {
+        romaji
+        english
+        native
+      }
+      characters(sort: [ROLE, RELEVANCE, ID], page: $page, perPage: 24) {
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+        edges {
+          role
+          node {
+            id
+            name { full }
+            image { large }
+          }
+          voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
+            id
+            name { full }
+            image { large }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_ANIME_STAFF_QUERY = `
+  query GetAnimeStaff($id: Int!, $page: Int = 1) {
+    Media(id: $id, type: ANIME) {
+      id
+      title {
+        romaji
+        english
+        native
+      }
+      staff(sort: [RELEVANCE, ID], page: $page, perPage: 24) {
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+        edges {
+          role
+          node {
+            id
+            name { full }
+            image { large }
+          }
+        }
+      }
     }
   }
 `;

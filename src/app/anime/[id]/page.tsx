@@ -306,6 +306,13 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
                     );
                   })}
                 </div>
+                {anime.characters.edges.length >= 12 && (
+                  <div className="mt-6 text-center">
+                    <Link href={`/anime/${anime.id}/characters`} className="inline-block px-8 py-2.5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors font-semibold border border-slate-700">
+                      View All Characters
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
             
@@ -330,6 +337,13 @@ export default async function AnimeDetailPage({ params }: { params: { id: string
                     );
                   })}
                 </div>
+                {anime.staff.edges.length >= 8 && (
+                  <div className="mt-6 text-center">
+                    <Link href={`/anime/${anime.id}/staff`} className="inline-block px-8 py-2.5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors font-semibold border border-slate-700">
+                      View All Staff
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
 
